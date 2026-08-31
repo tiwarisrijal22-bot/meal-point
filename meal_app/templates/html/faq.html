@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Meal Point</title>
+
+    {% include 'common/common_css.html' %}
+
+    <style>
+        .faq-container {
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        .faq-container h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .faq-box {
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background-color: #f5f5f5;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .faq-answer {
+            padding: 15px 20px;
+            background-color: white;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'common/header.html' %}
+
+    <div class="faq-container">
+
+        <h1>Frequently Asked Questions</h1>
+
+        <div class="faq-box">
+            <div class="faq-question">
+                1. What is Meal Point?
+            </div>
+            <div class="faq-answer">
+                Meal Point is a web-based tiffin service that provides
+                healthy, hygienic and homemade meals to students,
+                working professionals and individuals living away from home.
+            </div>
+        </div>
+
+        <div class="faq-box">
+            <div class="faq-question">
+                2. What type of meals are provided?
+            </div>
+            <div class="faq-answer">
+                Meal Point provides fresh and homemade meals including
+                breakfast, lunch and dinner according to the selected meal plan.
+            </div>
+        </div>
+
+        <div class="faq-box">
+            <div class="faq-question">
+                3. How can I choose a meal plan?
+            </div>
+            <div class="faq-answer">
+                Customers can view the available meal plans and select
+                a plan according to their meal requirements and budget.
+            </div>
+        </div>
+
+        <div class="faq-box">
+            <div class="faq-question">
+                4. Is the food hygienic?
+            </div>
+            <div class="faq-answer">
+                Yes. Meal Point focuses on providing fresh, hygienic and
+                homemade food prepared with proper cleanliness and quality.
+            </div>
+        </div>
+
+        <div class="faq-box">
+            <div class="faq-question">
+                5. How can I make payment?
+            </div>
+            <div class="faq-answer">
+                Customers can make payment through the available payment
+                options provided by Meal Point.
+            </div>
+        </div>
+
+        <div class="faq-box">
+            <div class="faq-question">
+                6. Can I give feedback about the food?
+            </div>
+            <div class="faq-answer">
+                Yes. Customers can submit their feedback and rating
+                through the feedback section of the Meal Point portal.
+            </div>
+        </div>
+
+        <div class="faq-box">
+            <div class="faq-question">
+                7. Can I contact Meal Point for any query?
+            </div>
+            <div class="faq-answer">
+                Yes. Customers can use the Contact Us section to
+                send their questions or queries to Meal Point.
+            </div>
+        </div>
+
+        <div class="faq-box">
+            <div class="faq-question">
+                8. Who can use Meal Point?
+            </div>
+            <div class="faq-answer">
+                Meal Point can be used by students, working professionals
+                and anyone who wants convenient homemade tiffin service.
+            </div>
+        </div>
+
+    </div>
+
+    {% include 'common/footer.html' %}
+
+</body>
+
+</html>

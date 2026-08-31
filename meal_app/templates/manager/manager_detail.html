@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Details</title>
+
+    {% include 'common/common_css.html' %}
+
+    <style>
+        body {
+            background: #f2f7ff;
+        }
+
+        .main-box {
+            margin-top: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #4b0082;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        th {
+            background: #6b4bea;
+            color: white;
+            text-align: center;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        .btn-edit {
+            background: #ffc107;
+            color: black;
+            padding: 5px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+
+        <div class="main-box">
+
+            <h2>Manager Details</h2>
+
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>S.No</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Address</th>
+                    <th>Username</th>
+                    <th>Action</th>
+                </tr>
+
+
+                {% for manager in managers %}
+
+                <tr>
+
+                    <td>{{forloop.counter}}</td>
+
+                    <td>{{manager.name}}</td>
+
+                    <td>{{manager.email}}</td>
+
+                    <td>{{manager.mobile}}</td>
+
+                    <td>{{manager.address}}</td>
+
+                    <td>{{manager.username}}</td>
+
+
+                    <td>
+                        <a href="#" class="btn-edit">
+                            Edit
+                        </a>
+
+                        <a href="#" class="btn-delete">
+                            Delete
+                        </a>
+                    </td>
+
+                </tr>
+
+
+                {% empty %}
+
+                <tr>
+                    <td colspan="7">
+                        No Manager Found
+                    </td>
+                </tr>
+
+
+                {% endfor %}
+
+
+            </table>
+
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

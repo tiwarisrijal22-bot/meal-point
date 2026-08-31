@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Login</title>
+    {% include 'common/common_css.html' %}
+    {% include 'common/message.html' %}
+    <style>
+        body {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-color: black;
+            background-image: linear-gradient(rgba(24, 23, 23, 0.7), rgba(29, 29, 29, 0.7)),
+            url("{% static 'images/like.jpg' %}");
+             background-position: center;
+        }
+        .login-box {
+            width: 400px;
+            background-color: azure;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px gray;
+            margin: 80px auto;
+            background-size: cover;
+            background-position: center;
+            
+        }
+        h2 {
+            text-align: center;
+            color: darkblue;
+            margin-bottom: 25px;
+        }
+        .btn {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+{% include 'customer/customer_header.html' %}
+    <div class="login-box">
+        <form action="/customer_login/"method="post">
+            {% csrf_token %}
+        <h2>Customer Login</h2>
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    <i class="fa-solid fa-envelope"></i>
+                </span>
+                <input type="email" class="form-control" placeholder="Enter Email" name="email" required>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    <i class="fa-solid fa-lock"></i>
+                </span>
+                <input type="password" class="form-control" placeholder="Enter Password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                Login
+            </button>
+            <div class="text-center mt-3">
+                Don't have an account?
+                <a href="/customer_registration/">Register Here</a>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

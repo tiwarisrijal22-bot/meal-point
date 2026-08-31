@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>about us</title>
+    {% include 'common/common_css.html' %}
+</head>
+<style>
+    body {
+        background-color: rgb(230, 234, 236);
+    }
+
+    h3 {
+        color: rgb(233, 28, 28);
+        text-align: center;
+        font-family: Arial;
+    }
+
+    /* .form-div {
+        width: 500px;
+        height: 500px;
+        background-color: rgb(100, 100, 211, 0.22);
+        gap: 10%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border: 3px solid rgb(193, 193, 207);
+        border-radius: 20px;
+
+        box-shadow: 0px 0px 10px gray;
+        box-sizing: border-box;
+        padding: 25px;
+        margin: 2%;
+        overflow: hidden;
+    } */
+
+    /* .plan-card {
+        width: 500px;
+        background-color: rgb(114, 191, 215, 0.22);
+        margin: 2%;
+        min-height: 450px;
+        height: 500px;
+        overflow: hidden;
+        padding: 35px;
+        box-sizing: border-box;
+        border: 2px solid rgb(193, 193, 207);
+        border-radius: 20px;
+
+
+    } */
+.form-div {
+    width: 500px;
+    height: 500px;
+    box-sizing: border-box;
+    padding: 25px;
+    margin: 2%;
+    overflow: hidden;
+    background-color: rgb(100, 100, 211, 0.22);
+    border: 3px solid rgb(193, 193, 207);
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px gray;
+}
+.plan-card {
+    width: 500px;
+    height: 500px;
+    box-sizing: border-box;
+    padding: 25px;
+    margin: 2%;
+    overflow: hidden;
+    background-color: rgb(114, 191, 215, 0.22);
+    border: 2px solid rgb(193, 193, 207);
+    border-radius: 20px;
+}
+
+    .main-div {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: stretch;
+        min-height: 20vh;
+        gap: 10px;
+        overflow: hidden;
+    }
+
+    .image-div {
+        width: 28%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 15%;
+    }
+
+    .image-div img {
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 2%;
+        background: rgb(218, 224, 227);
+        /* background color */
+        padding: 5px;
+        margin-top: 50%;
+        box-shadow: 0px 0px 15px gray;
+        margin-right: 50%;
+        margin: 10%;
+    }
+
+  p {
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    color: rgb(15, 15, 20);
+    line-height: 1.5;
+    overflow-wrap: break-word;
+}
+</style>
+
+<body>
+    {% include 'common/header.html' %}
+    <div class="main-div">
+        <div class="form-div">
+            <h3> Proposed System</h3>
+            <p>
+                The proposed system is a web-based Meal point Management System operated by a single Meal point
+                provider.<br>
+                The system allows customers to register, manage their profiles, view available meal plans, make
+                payments, submit feedback, and
+                communicate with the administrator through queries.<br>
+                The administrator can create and manage meal plans, maintain customer records, monitor payments, handle
+                customer
+                feedback, and respond to customer queries.<br> The system ensures efficient service management and
+                provides a convenient
+                platform for both customers and the Meal point provider.
+            </p>
+        </div>
+
+        <div class="image-div">
+            <img src="{% static 'images/p.jpg' %}" alt="Meal Point">
+        </div>
+        <div class="plan-card">
+            <h3>Mission & Objectives</h3>
+            <p>
+                To provide a centralized platform for managing Meal points.<br>
+                To enable customers to view and compare meal plans conveniently from a single portal.<br>
+                To simplify meal plan selection and customer management.<br>
+                To provide an effective digital platform for managing customer records.<br>
+                To facilitate easy payment management and tracking.<br>
+                To collect customer feedback and improve service quality.<br>
+                To reduce manual effort in managing Meal point operations.<br>
+                To improve communication between customers and the service provider.<br>
+            </p>
+        </div>
+    </div>
+
+    <!-- footer code include here -->
+    {% include 'common/footer.html' %}
+
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+{% if messages %}
+<div class="toast-container position-fixed end-0 p-3" style="top:70px; z-index:9999;">
+
+    {% for m in messages %}
+    <div class="toast show mb-2
+        {% if m.tags == 'success' %}text-bg-success
+        {% elif m.tags == 'error' %}text-bg-danger
+        {% elif m.tags == 'warning' %}text-bg-warning
+        {% else %}text-bg-primary
+        {% endif %}">
+
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ m }}
+            </div>
+
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast">
+            </button>
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+{% endif %}
+
+<!-- <div class="toast-container position-fixed start-50 translate-middle-x p-3"
+     style="top:70px; z-index:9999;"> -->
+
+<!-- <div class="toast-container position-fixed start-0 p-3"
+     style="top:70px; z-index:9999;"> -->

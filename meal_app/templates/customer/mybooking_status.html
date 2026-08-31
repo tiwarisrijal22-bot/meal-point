@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mybooking</title>
+    {% include 'common/common_css.html' %}
+    <style>
+        .div {
+            margin: 4%;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'customer/customer_header.html' %}
+  
+    <div class="div">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">plan name</th>
+                    <th scope="col">price</th>
+                    <th scope="col">duration</th>
+                    <th scope="col">booking status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in p_key %}
+                <tr>
+                    <td>{{ p.plan.plan_name }}</td>
+                    <td>{{ p.plan.cost }}</td>
+                    <td>{{ p.plan.duration }}</td>
+                    {%if p.payment_status %}
+                    <td style="color:green">Booking confirmed</td>
+
+                    {%else%}
+
+                    <td style="color:red">Payment Yet Not Received</td>
+                    {%endif%}
+
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+    </div>
+    <!-- footer code include here -->
+    {% include 'common/footer.html' %}
+
+</body>
+
+</html>

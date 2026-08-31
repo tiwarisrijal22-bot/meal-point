@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>customer Registration</title>
+    {% include 'common/common_css.html' %}
+
+    <style>
+        .main-div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(234, 233, 233, 0.45), rgba(0, 0, 0, 0.45)),
+    url("{% static 'images/food5.jpeg' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+        }
+        
+        .heading {
+            color: rgb(15, 15, 155);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .form-div {
+            width: 50%;
+            /* background-image: linear-gradient(rgba(24, 23, 23, 0.7)),
+            url("{% static 'images/good.jpg' %}"); */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            border: 3px solid rgb(193, 193, 207);
+            border-radius: 20px;
+            background-color: rgb(243, 243, 244);
+            padding: 35px;
+            box-shadow: 0px 0px 10px gray;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <!-- header code -->
+    {% include 'common/header.html' %}
+    {% include 'common/message.html' %}
+
+    <!-- make all the design in this div -->
+    <div class="main-div">
+
+        <h1 class="heading">Customer Registration Form</h1>
+
+        <div class="form-div">
+            <form action="{% url 'registrationpage' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Enter Your Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="Enter your email id" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Enter Your Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Enter Your Password"
+                        required minlength="8">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Enter Your Name</label>
+                    <input type="text" name="name" class="form-control" placeholder="Enter Your Name" required pattern="[A-Za-z ]+" title="Only alphabets are allowed">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Enter Your Phone Number</label>
+                    <input type="tel" name="phone" class="form-control" placeholder="Enter Your Phone Number" required pattern="[0-9]{10}" title="Enter 10 digit phone number">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Upload Your Photo</label>
+                    <input type="file" name="profile_pic" class="form-control" required accept=".jpg, .jpeg, .png , .gif, .webp">
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-danger">Submit</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+    <!-- footer code -->
+    {% include 'common/footer.html' %}
+
+
+</body>
+
+</html>

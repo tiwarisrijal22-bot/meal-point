@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>feedback form</title>
+    {% include 'common/common_css.html' %}
+    <style>
+        body {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-color: black;
+            background-image: linear-gradient(rgba(24, 23, 23, 0.7), rgba(29, 29, 29, 0.7)),
+            url("{% static 'images/feed.jpg' %}");
+        }
+
+        .box {
+            width: 30%;
+            margin: auto;
+            height: 400px;
+            border: 3px solid rgb(223, 236, 236);
+            border-radius: 20px;
+            /* background-image: linear-gradient(rgba(24, 23, 23, 0.7), rgba(29, 29, 29, 0.7)),
+            url("{% static 'images/customer.jpg' %}"); */
+            padding: 30px;
+            background-color:rgb(248, 250, 246);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn {
+            background-color: rgb(193, 61, 61);
+            position: center;
+            display: block;
+            margin: 0 auto;
+
+        }
+
+        .bgcolor {
+            background-color: rgb(18, 18, 18);
+        }
+
+        .heading {
+            text-align: center;
+            color: rgb(84, 77, 91);
+            font-family: Georgia;
+            background-color: rgb(252, 251, 250);
+        }
+    </style>
+</head>
+
+<body class="bgcolor">
+    {% include 'customer/customer_header.html' %}
+    {% include 'common/message.html' %}
+    <h1 class="heading">FEEDBACK FORM</h1>
+    <div class="box">
+        <form method="post" action="/customer_feedback/">
+            {% csrf_token %}
+            <div class="input-group mb-3 mb-3">
+                <span class="input-group-text">
+                    <i class="fa-solid fa-id-badge fa-flip-360"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Name" name="name" required
+                    value="{{customer_key.name}}" >
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    <i class="fa-solid fa-at fa-flip-360"></i>
+                </span>
+                <input type="email" class="form-control" placeholder="User email" name="email" required
+                    value="{{customer_key.email}}" >
+            </div>
+            <div class="input-group mb-3 mb-3">
+                <span class="input-group-text">
+                    <i class="fa-regular fa-star fa-flip-360"></i>
+                </span>
+                <select name="rating" class="form-control" placeholder="rating" required>
+                    <option value="Give rate">rating</option>
+                    <option value="⭐">⭐</option>
+                    <option value="⭐⭐">⭐⭐</option>
+                    <option value="⭐⭐⭐">⭐⭐⭐</option>
+                    <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+                    <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
+                </select>
+                <div style="margin: 2%;" class="input-group mb-3">
+                    <textarea class="form-control" placeholder="enter your remark" name="review" required></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn">Submit </button>
+        </form>
+    </div>
+    {% include 'common/footer.html' %}
+</body>
+
+</html>

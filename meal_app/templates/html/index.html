@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Meal Point</title>
+    {% include 'common/common_css.html' %}
+    <style>
+        body {
+            margin: 0;
+            background-color: whitesmoke;
+            font-family: Arial, sans-serif;
+        }
+        .meal {
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(rgba(0, 0, 0, 0.50),
+                rgba(0, 0, 0, 0.50)),
+            url("{% static 'images/tiffin.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+        }
+
+        .meal h1 {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .meal p {
+            font-size: 18px;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.6;
+        }
+        .btn-meal {
+            display: inline-block;
+            margin: 20px 5px 0;
+            padding: 11px 24px;
+            background-color: #e67e22;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .btn-meal:hover {
+            background-color: #d35400;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .about {
+            background-color: #FEFAEE;
+            padding: 55px 10%;
+            text-align: center;
+        }
+        .about h2 {
+            margin-bottom: 15px;
+            font-size: 32px;
+        }
+        .about p {
+            font-size: 16px;
+            line-height: 1.8;
+            max-width: 850px;
+            margin: auto;
+        }
+        .features {
+            padding: 50px 8%;
+        }
+        .feature-box {
+            min-height: 300px;
+            padding: 25px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: white;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            transition: 0.3s;
+        }
+        .feature-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-box-1 {
+            background: linear-gradient(rgba(0, 0, 0, 0.50),
+                rgba(0, 0, 0, 0.50)),
+            url("{% static 'images/food5.jpeg' %}");
+        }
+
+        .feature-box-2 {
+            background: linear-gradient(rgba(0, 0, 0, 0.50),
+                rgba(0, 0, 0, 0.50)),
+            url("{% static 'images/food2.jpeg' %}");
+        }
+
+        .feature-box-3 {
+            background: linear-gradient(rgba(0, 0, 0, 0.50),
+                rgba(0, 0, 0, 0.50)),
+            url("{% static 'images/food3.jpeg' %}");
+        }
+
+        .feature-box h3 {
+            margin-bottom: 12px;
+            font-size: 25px;
+        }
+
+        .feature-box p {
+            line-height: 1.6;
+            max-width: 300px;
+        }
+        .features-5 {
+            padding: 70px 8%;
+            text-align: center;
+            background: #fff8f2;
+        }
+        .features-5 h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .feature-5-container {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature-5-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: 0.4s;
+        }
+        .feature-5-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 107, 53, 0.25);
+        }
+        .feature-5-card h1 {
+            font-size: 45px;
+            margin: 0 0 10px;
+        }
+        .feature-5-card h3 {
+            margin-bottom: 10px;
+        }
+        .feature-5-card p {
+            line-height: 1.6;
+        }
+        .services {
+            padding: 70px 8%;
+            text-align: center;
+            background-color: #fff;
+        }
+        .services h2 {
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+        .service-box {
+            display: grid;
+            grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+        .service-box .card {
+            background: #fff8f2;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+        .service-box .card:hover {
+            transform: translateY(-8px);
+        }
+        .service-box .card img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+        .service-box .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .service-box .card p {
+            line-height: 1.6;
+        }
+        .about-meal {
+            padding: 70px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            background-color: #FEFAEE;
+            flex-wrap: wrap;
+        }
+        .about-image {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+      }
+        .about-image img {
+            width: 220px;
+            max-width: 100%;
+        }
+        .about-text {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .about-text h2 {
+            font-size: 32px;
+
+            margin-bottom: 15px;
+        }
+
+        .about-text p {
+            line-height: 1.8;
+
+            font-size: 16px;
+        }
+
+        .btn {
+            display: inline-block;
+
+            margin-top: 15px;
+
+            padding: 11px 25px;
+
+            background-color: #e67e22;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 5px;
+
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #d35400;
+
+            color: white;
+        }
+
+
+        /* =========================
+           HOW IT WORKS
+        ========================= */
+
+        .how-it-works {
+            padding: 70px 8%;
+
+            background-color: white;
+
+            text-align: center;
+        }
+
+        .works-title h2 {
+            font-size: 32px;
+
+            margin-bottom: 10px;
+        }
+
+        .works-title p {
+            color: #555;
+        }
+
+        .steps {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 25px;
+
+            margin-top: 40px;
+        }
+
+        .step {
+            padding: 30px 20px;
+
+            border-radius: 15px;
+
+            background-color: #fff8f2;
+
+            box-shadow:
+                0 5px 15px rgba(0, 0, 0, 0.08);
+
+            transition: 0.3s;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            width: 55px;
+            height: 55px;
+
+            margin: 0 auto 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background-color: #e67e22;
+
+            color: white;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+        .step h3 {
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           CALL TO ACTION
+        ========================= */
+
+        .cta {
+            padding: 70px 20px;
+            text-align: center;
+            color: white;
+            background: linear-gradient(rgba(0, 0, 0, 0.60),
+                rgba(0, 0, 0, 0.60)),
+            url("{% static 'images/food2.jpeg' %}");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .cta h2 {
+            font-size: 35px;
+
+            margin-bottom: 10px;
+        }
+
+        .cta p {
+            font-size: 18px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================
+           MOBILE RESPONSIVE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            .meal {
+                min-height: 450px;
+            }
+
+            .meal h1 {
+                font-size: 36px;
+            }
+
+            .meal p {
+                font-size: 16px;
+            }
+
+            .about {
+                padding: 45px 6%;
+            }
+
+            .features {
+                padding: 40px 6%;
+            }
+
+            .about-meal {
+                padding: 50px 6%;
+                gap: 25px;
+            }
+
+            .cta h2 {
+                font-size: 28px;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    {% include 'common/header.html' %}
+    <section class="meal">
+
+        <div>
+
+            <h1>Welcome to Meal Point</h1>
+
+            <p>
+                Get fresh, healthy and homemade food at an affordable
+                price. Meal Point provides convenient meal plans for
+                students and working people.
+            </p>
+
+            <a href="/customer_login/" class="btn-meal">
+                Login
+            </a>
+
+            <a href="/customer_registration/" class="btn-meal">
+                Register Now
+            </a>
+
+        </div>
+
+    </section>
+    <section class="about">
+
+        <h2>About Meal Point</h2>
+
+        <p>
+            Meal Point is an online platform where customers can view
+            different meal plans and choose meals according to their
+            requirements. Our aim is to provide simple, healthy and
+            homemade food for people who stay away from home.
+        </p>
+
+    </section>
+    <section class="features">
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="feature-box feature-box-1">
+
+                    <h3>Healthy Food</h3>
+
+                    <p>
+                        We provide fresh and nutritious food
+                        prepared with good quality ingredients.
+                    </p>
+
+                    <a href="/food/" class="btn-meal">
+                        View More Meals
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="feature-box feature-box-2">
+
+                    <h3>Homemade Food</h3>
+
+                    <p>
+                        Enjoy the taste of simple and
+                        homemade-style meals.
+                    </p>
+
+                    <a href="/food/" class="btn-meal">
+                        View More Meals
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="feature-box feature-box-3">
+
+                    <h3>Easy Booking</h3>
+
+                    <p>
+                        Customers can easily select a meal plan
+                        and book their meals online.
+                    </p>
+
+                    <a href="/food/" class="btn-meal">
+                        View Meals
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <section class="features-5">
+
+        <h2>Why Choose Meal Point?</h2>
+
+        <div class="feature-5-container">
+
+            <div class="feature-5-card">
+
+                <h1>🥗</h1>
+
+                <h3>Fresh Food</h3>
+
+                <p>
+                    Cooked every day with fresh ingredients.
+                </p>
+
+            </div>
+
+
+            <div class="feature-5-card">
+
+                <h1>🚚</h1>
+
+                <h3>Fast Delivery</h3>
+
+                <p>
+                    Hot meals delivered on time.
+                </p>
+
+            </div>
+
+
+            <div class="feature-5-card">
+
+                <h1>💳</h1>
+
+                <h3>Easy Payment</h3>
+
+                <p>
+                    UPI, Cards &amp; Cash accepted.
+                </p>
+
+            </div>
+
+
+            <div class="feature-5-card">
+
+                <h1>⭐</h1>
+
+                <h3>Top Rated</h3>
+
+                <p>
+                    Trusted by hundreds of happy customers.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+    <section class="services">
+
+        <h2>Our Services</h2>
+
+        <div class="service-box">
+
+            <div class="card">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Healthy Meals">
+
+                <h3>Healthy Meals</h3>
+
+                <p>
+                    Freshly prepared nutritious homemade food every day.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/2921/2921822.png" alt="Quick Delivery">
+
+                <h3>Quick Delivery</h3>
+
+                <p>
+                    Fast and reliable delivery at your preferred time.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" alt="Meal Plans">
+
+                <h3>Meal Plans</h3>
+
+                <p>
+                    Choose daily, weekly or monthly subscription plans.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/929/929426.png" alt="Secure Payment">
+
+                <h3>Secure Payment</h3>
+
+                <p>
+                    Easy online payment with complete security.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+    <section class="about-meal">
+
+        <div class="about-image">
+
+            <img src="https://cdn-icons-png.flaticon.com/512/3480/3480823.png" alt="Meal Point">
+
+        </div>
+
+
+        <div class="about-text">
+
+            <h2>Why Meal Point?</h2>
+
+            <p>
+                Meal Point provides hygienic, affordable and homemade
+                meals prepared with fresh ingredients. We ensure quality
+                food, timely delivery and flexible subscription plans
+                to make your daily meals hassle-free.
+            </p>
+
+            <a href="/about_us/" class="btn">
+                Read More
+            </a>
+        </div>
+    </section>
+    <section class="how-it-works">
+
+        <div class="works-title">
+
+            <h2>How Meal Point Works?</h2>
+
+            <p>
+                Getting healthy homemade meals is just four simple steps.
+            </p>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <h3>Choose Your Meal</h3>
+
+                <p>
+                    Explore our variety of fresh and healthy meals.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <h3>Select Your Plan</h3>
+
+                <p>
+                    Choose a meal plan that fits your daily needs.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <h3>We Prepare</h3>
+
+                <p>
+                    Your meal is freshly prepared with quality ingredients.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    04
+                </div>
+
+                <h3>Get It Delivered</h3>
+
+                <p>
+                    Enjoy your fresh homemade meal at your doorstep.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+    <section class="cta">
+        <h2>Eat Healthy. Live Better.</h2>
+        <p>
+            Join Meal Point today and enjoy delicious homemade meals every day.
+        </p>
+
+        <a href="/customer_registration/" class="btn">
+            Get Started
+        </a>
+
+    </section>
+
+
+    {% include 'common/footer.html' %}
+
+</body>
+
+</html>

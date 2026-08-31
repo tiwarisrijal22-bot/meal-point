@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Us</title>
+
+    {% include 'common/common_css.html' %}
+
+    <style>
+        body {
+            background-color: rgb(245, 242, 242);
+            margin: 0;
+            padding: 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* CONTACT HEADING */
+
+        .contact-heading {
+            color: #140e0e;
+            text-align: center;
+            margin: 25px auto;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+
+        /* MAIN CONTAINER */
+
+        .main-div {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: stretch;
+
+            width: 90%;
+            max-width: 1100px;
+
+            margin: 0 auto 40px;
+
+            /* IMPORTANT */
+            gap: 0;
+
+            padding: 0;
+        }
+
+
+        /* LEFT SIDE IMAGE */
+
+        .img-div {
+            width: 42%;
+            height: 450px;
+
+            margin: 0;
+            padding: 0;
+
+            overflow: hidden;
+
+            border-radius: 10px 0 0 10px;
+
+            box-shadow: none;
+        }
+
+
+        .img-div img {
+            width: 100%;
+            height: 450px;
+
+            display: block;
+
+            object-fit: cover;
+
+            margin: 0;
+            padding: 0;
+
+            border-radius: 10px 0 0 10px;
+        }
+
+
+        /* RIGHT SIDE FORM */
+
+        .form-div {
+            width: 58%;
+            min-height: 450px;
+
+            margin: 0;
+            padding: 30px;
+
+            background-color: aliceblue;
+
+            border-radius: 0 10px 10px 0;
+
+            box-shadow: none;
+
+            box-sizing: border-box;
+        }
+
+
+        /* FORM LABEL */
+
+        .form-div label {
+            font-weight: bold;
+            color: #222;
+        }
+
+
+        /* TEXTAREA */
+
+        .form-div textarea {
+            height: 80px;
+            resize: none;
+        }
+
+
+        /* SUBMIT BUTTON */
+
+        .form-div .btn {
+            padding: 10px 30px;
+            font-weight: bold;
+            border-radius: 6px;
+        }
+
+
+        /* MOBILE RESPONSIVE */
+
+        @media (max-width: 768px) {
+
+            .main-div {
+                flex-direction: column;
+                width: 90%;
+            }
+
+            .img-div {
+                width: 100%;
+                height: 300px;
+
+                border-radius: 10px 10px 0 0;
+            }
+
+            .img-div img {
+                width: 100%;
+                height: 300px;
+
+                border-radius: 10px 10px 0 0;
+            }
+
+            .form-div {
+                width: 100%;
+                min-height: auto;
+
+                border-radius: 0 0 10px 10px;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    {% include 'common/header.html' %}
+
+
+    <!-- MESSAGE -->
+
+    {% include 'common/message.html' %}
+
+
+    <!-- HEADING -->
+
+    <h1 class="contact-heading">
+        Contact Us
+    </h1>
+
+
+    <!-- MAIN CONTACT SECTION -->
+
+    <div class="main-div">
+
+
+        <!-- LEFT SIDE IMAGE -->
+
+        <div class="img-div">
+
+            <img src="{% static 'images/us.jpg' %}" alt="Contact Us">
+
+        </div>
+
+
+        <!-- RIGHT SIDE FORM -->
+
+        <div class="form-div">
+
+            <form method="post" action="/contact_us/" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+
+                <!-- NAME -->
+
+                <div class="mb-3">
+
+                    <label for="Name" class="form-label">
+                        Enter Your Name
+                    </label>
+
+                    <input type="text" id="Name" name="name" placeholder="Enter Your Name" required
+                        class="form-control"pattern="[A-Za-z ]+" title="Only alphabets are allowed">
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="mb-3">
+
+                    <label for="Email" class="form-label">
+                        Enter Your Email
+                    </label>
+
+                    <input type="email" id="Email" name="email" placeholder="Enter Your Email" required
+                        class="form-control">
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="mb-3">
+
+                    <label for="Phone" class="form-label">
+                        Enter Your Phone Number
+                    </label>
+
+                    <input type="tel" id="Phone" name="phone" placeholder="Enter Your Phone Number" required
+                        class="form-control" pattern="[0-9]{10}" title="Enter 10 digit phone number">
+
+                </div>
+
+
+                <!-- QUESTION -->
+
+                <div class="mb-3">
+
+                    <label for="Question" class="form-label">
+                        Enter Your Question
+                    </label>
+
+                    <textarea id="Question" name="question" placeholder="Enter Your Question" required
+                        class="form-control"></textarea>
+
+                </div>
+
+
+                <!-- SUBMIT BUTTON -->
+
+                <div class="text-center">
+
+                    <button type="submit" class="btn btn-danger">
+
+                        Submit
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    {% include 'common/footer.html' %}
+
+</body>
+
+</html>

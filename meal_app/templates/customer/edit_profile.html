@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit profile</title>
+    {% include 'common/common_css.html' %}
+    <style>
+        body {
+            background: #f5f7fb;
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .text {
+            color: rgb(46, 18, 173);
+            font-size: 20px;
+            font-family: 'Franklin';
+        }
+
+        .label-text {
+            color: gray;
+            font-size: 16px;
+            font-family: 'Franklin';
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'customer/customer_header.html' %}
+    {% include 'common/message.html' %}
+
+    <div class="main-div">
+        <div class="container py-5 w-75 rounded-4 mt-5">
+            <form action="/edit_profile/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+            <div class="card shadow-lg border-0 rounded-4">
+
+                <div class="row g-0">
+
+                    <!-- Profile Image -->
+
+                    <div class="col-lg-4 text-center rounded-4  p-4 d-flex align-items-center justify-content-center">
+
+                        <div class="rounded-4 shadow" style="background-color: rgb(144, 142, 137);">
+
+                            {% if customer_key.profile_pic %}
+
+                            <img src='/media/{{customer_key.profile_pic}}'
+                                class="img-fluid rounded-4 shadow profile-img">
+                            {% else %}
+                            <img src="{% static 'images/avatar-design.png' %}"
+                                class="img-fluid rounded-4 shadow profile-img">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <label for="changepic">upload new pic</label>
+                    <input type="file" name="profile_pic">
+                    <!-- User Details -->
+
+                    <div class="col-lg-8">
+
+                        <div class="card-body p-5">
+
+                            <div class="d-flex justify-content-center align-items-center mb-4 ">
+
+                                <h2 class="fw-bold text-primary mb-0">
+                                    customer upload Profile
+                                </h2>
+
+
+                            </div>
+
+                            <hr>
+
+                            <div class="row gy-4">
+
+                                <div class="col-md-6">
+                                    <label class="label-text">Full Name</label>
+                                    <div class="text">
+                                        <input type="text" name="name" value="{{customer_key.name}}"required class="form-control"pattern="[A-Za-z ]+" title="Only alphabets are allowed"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="label-text">Phone Number</label>
+                                    <div class="text">
+                                        <input type="text" name="phone" value="{{customer_key.phone}}" requiredpattern="[0-9]{10}" title="Enter 10 digit phone number"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="label-text">Email</label>
+                                    <div class="text">{{customer_key.email}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-danger">submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <!-- footer code include here -->
+    {% include 'common/footer.html' %}
+</body>
+</html>

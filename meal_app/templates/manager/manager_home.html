@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> manager home</title>
+    {% include 'common/common_css.html' %}
+    <style>
+        body {
+            background: #0d0d0e;
+            background-image: linear-gradient(rgba(24, 23, 23, 0.7), rgba(29, 29, 29, 0.7)),
+            url("{% static 'images/good.jpg' %}" ) ;
+             background-repeat: no-repeat;
+             background-size: cover;
+            background-position: center;
+        }
+        .profile-img {
+            width: 200px;
+            height: 250px;
+            object-fit: cover;
+            
+        }
+
+        .text {
+            color: rgb(156, 203, 175);
+            font-size: 20px;
+            font-family: 'Franklin';
+        }
+
+        .label-text {
+            color: rgb(25, 24, 24);
+            font-size: 16px;
+            font-family: 'Franklin';
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'manager/manager_header.html' %}
+    <div class="main-div">
+        <div class="container py-5 w-75 rounded-4 mt-5">
+
+            <div class="card shadow-lg border-0 rounded-4">
+
+                <div class="row g-0">
+
+                    <!-- Profile Image -->
+
+                    <div class="col-lg-4 text-center rounded-4  p-4 d-flex align-items-center justify-content-center">
+
+                        <div class="rounded-4 shadow" style="background-color: rgb(36, 36, 35);">
+                            {% if manager_key.profile_pic %}
+                            <img src='/media/{{manager_key.profile_pic}}' class="img-fluid rounded-4 shadow profile-img">
+                            {% else %}
+                            <img src="{% static 'images/avatar-design.png' %}"
+                                class="img-fluid rounded-4 shadow profile-img">
+                                {% endif %}
+                        </div>
+
+                    </div>
+
+                    <!-- User Details -->
+
+                    <div class="col-lg-8">
+
+                        <div class="card-body p-5">
+
+                            <div class="d-flex justify-content-center align-items-center mb-4 ">
+
+                                <h2 class="fw-bold text-primary mb-0">
+                                    manager Profile
+                                </h2>
+
+
+                            </div>
+
+                            <hr>
+
+                            <div class="row gy-4">
+                                <div class="col-md-12">
+                                    <label class="label-text">Full Name</label>
+                                    <div class="text">{{manager_key.name}}</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label-text">Phone Number</label>
+                                    <div class="text">{{manager_key.phone}}</div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label class="label-text">Email</label>
+                                    <div class="text">{{manager_key.email}}</div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <label class="label-text">city</label>
+                                        <div class="text">{{manager_key.city}}</div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <label class="label-text">address</label>
+                                            <div class="text">{{manager_key.address}}</div>
+                                            </div>
+                                    </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- footer code -->
+    {% include 'common/footer.html' %}
+
+</body>
+
+</html>

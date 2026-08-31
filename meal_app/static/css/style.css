@@ -1,0 +1,9 @@
+body{
+    background-color: rgb(232, 225, 225);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.main-div{
+    flex: 1
+}

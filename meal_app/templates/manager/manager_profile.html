@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Login</title>
+
+    {% include 'common/common_css.html' %}
+</head>
+
+<body>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-header bg-primary text-white text-center">
+                    <h3>Manager Profile</h3>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="text-center mb-4">
+
+                        {% if manager.profile_pic %}
+                        <img src="{{ manager.profile_pic.url }}" class="rounded-circle border" width="150" height="150">
+                        {% else %}
+                        <img src="{% static 'images/default.png' %}" class="rounded-circle border" width="150"
+                            height="150">
+                        {% endif %}
+
+                    </div>
+
+                    <table class="table table-bordered">
+
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ manager.name }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ manager.email }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Phone</th>
+                            <td>{{ manager.phone }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Address</th>
+                            <td>{{ manager.address }}</td>
+                        </tr>
+
+                    </table>
+
+                    <div class="text-center mt-4">
+                        <a href="{% url 'managerhomepage' %}" class="btn btn-success">
+                            Back to Dashboard
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Login</title>
+    {% include 'common/common_css.html' %}
+    {% include 'common/message.html' %}
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            box-shadow: rgb(157, 120, 120);
+            background-image: linear-gradient(rgba(24, 23, 23, 0.7), rgba(29, 29, 29, 0.7)),
+            url("{% static 'images/bgen.jpg' %}");
+            background-size: cover;
+        }
+
+        .login-box {
+            width: 450px;
+            height: 400px;
+            background: rgb(146, 152, 239);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 20px rgba(233, 227, 227, 0.2);
+            /* background-image: linear-gradient(rgba(24, 23, 23, 0.7), rgba(29, 29, 29, 0.7)),
+            url("{% static 'images/background.jpg' %}"); */
+            background-color: rgb(228, 225, 221);
+
+        }
+
+        .login-title {
+            text-align: center;
+            color: #4b0082;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            border-radius: 8px;
+        }
+
+        .btn-login {
+            width: 100%;
+            background: #6b4bea;
+            color: white;
+            border-radius: 8px;
+            padding: 10px;
+            border: none;
+        }
+
+        .btn-login:hover {
+            background: #4b0082;
+        }
+
+        .icon {
+            background: #6b4bea;
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+    {% include 'customer/customer_header.html' %}
+    <div class="login-box">
+        <form action="/manager_login/" method="post">
+            {% csrf_token %}
+            <h2 class="login-title">Manager Login</h2>
+            <div class="input-group">
+                <span class="input-group-text icon">
+                    <i class="fa-solid fa-user"></i>
+                </span>
+                <input type="email" class="form-control" placeholder="Enter Email" name="email" required>
+            </div><br>
+
+
+            <div class="input-group">
+                <span class="input-group-text icon">
+                    <i class="fa-solid fa-lock"></i>
+                </span>
+                <input type="password" class="form-control" placeholder="Password" name="password" required>
+            </div>
+            <button type="submit" class="btn-login">
+                Login
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>planpage</title>
+
+
+    {% include 'common/common_css.html' %}
+    {% include 'common/message.html' %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+        integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        body {
+            background-color: rgb(203, 178, 207);
+
+        }
+
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+            margin-top: 25%;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+
+        }
+
+        .form-div {
+            width: 35%;
+            height: 560px;
+            background-color: rgb(103, 95, 128);
+            border-radius: 5%;
+            padding: 3%;
+            box-shadow: 0px 0px 10px gray;
+            margin-top: 5%;
+
+        }
+
+        .img_div {
+            width: 30%;
+            height: 400px;
+            /* background-color: brown; */
+            border-radius: 5%;
+            padding: 4%;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'customer/customer_header.html' %}
+    <div class="main-div">
+        <div class="flex-container">
+            <!-- <h1>Scan QR To Make Payment</h1> -->
+            <div class="form-div">
+                <h1 style="text-align: center; margin-top: auto;  ">Payment Form</h1>
+
+                <form style="font-size: 20px;" method="post" action="/make_payment/">
+                    {% csrf_token %}
+                    <!-- <div class="mb-3">
+                        <label for="Name" class="form-label">Customer name</label>
+                        <input type="text" name="name" placeholder="Enter Your Name"  required class="form-control">
+
+                    </div> -->
+                    <!-- <input type="" name="plan_id" value="{{plan_key.id}}"> -->
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Amount</label>
+                        <input type="number" name="amount" value="{{plan_key.cost}}" readonly class="form-control" >
+
+                    </div>
+                    <input type="text" name="plan_id" value="{{plan_key.id}}"hidden>
+                    <div class="mb-3">
+                        <label for="plan name" class="form-label">Plan Name</label>
+                        <input type="text" name="name" placeholder="Enter plan name" readonly class="form-control"
+                            value="{{plan_key.plan_name}}">
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="transaction_id" class="form-label">Transaction Id</label>
+                        <input type="text" name="transaction_id" placeholder="Enter transaction id" required
+                            class="form-control">
+
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-success w-50">Submit</button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="image-div" id="qrcode">
+                <h3 style="text-align: center;">Scan To Pay</h3>
+            </div>
+        </div>
+    </div>
+    <script>
+        function generateQRCode() {
+            new QRCode(document.getElementById("qrcode"), {
+                text: "{{ upi|escapejs }}",
+                width: 200,
+                height: 200
+            })
+        }
+        generateQRCode()
+    </script>
+    <!-- footer code included here  -->
+    {% include 'common/footer.html' %}
+</body>
+
+</html>

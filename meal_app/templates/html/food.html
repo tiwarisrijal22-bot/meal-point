@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Meal Schedule</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f2f7f4;
+        }
+
+        header {
+            background: linear-gradient(90deg, #28a745, #1e8449);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            font-size: 40px;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1300px;
+            margin: 40px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .12);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #28a745;
+            color: white;
+            padding: 18px;
+            font-size: 18px;
+        }
+
+        td {
+            padding: 18px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+            vertical-align: top;
+            font-size: 15px;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: #e8f8ee;
+        }
+
+        .day {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 17px;
+        }
+
+        .breakfast {
+            color: #d35400;
+            font-weight: 600;
+        }
+
+        .lunch {
+            color: #2980b9;
+            font-weight: 600;
+        }
+
+        .dinner {
+            color: #8e44ad;
+            font-weight: 600;
+        }
+
+        .note {
+            margin-top: 30px;
+            background: white;
+            padding: 25px;
+            border-left: 6px solid #28a745;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
+        }
+
+        .note h2 {
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+
+        .note ul {
+            padding-left: 20px;
+        }
+
+        .note li {
+            margin: 10px 0;
+        }
+
+        footer {
+            margin-top: 40px;
+            background: #1e8449;
+            color: white;
+            text-align: center;
+            padding: 18px;
+        }
+
+        @media(max-width:900px) {
+
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            header h1 {
+                font-size: 30px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <h1>🍱 Weekly Vegetarian Meal Schedule</h1>
+
+        <p>Healthy • Hygienic • Freshly Cooked Every Day</p>
+
+    </header>
+
+    <div class="container">
+
+        <table>
+
+            <tr>
+                <th>Day</th>
+                <th>🥞 Breakfast (8:00 AM)</th>
+                <th>🍛 Lunch (1:00 PM)</th>
+                <th>🍽 Dinner (8:00 PM)</th>
+            </tr>
+
+            <tr>
+
+                <td class="day">Monday</td>
+
+                <td class="breakfast">
+                    Veg Sandwich<br>
+                    Sprouts Salad<br>
+                    Banana<br>
+                    Tea / Coffee
+                </td>
+
+                <td class="lunch">
+                    Jeera Rice<br>
+                    Dal Tadka<br>
+                    Paneer Butter Masala<br>
+                    3 Chapati<br>
+                    Salad<br>
+                    Pickle
+                </td>
+
+                <td class="dinner">
+                    Veg Pulao<br>
+                    Mix Veg Curry<br>
+                    Boondi Raita<br>
+                    Gulab Jamun
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td class="day">Tuesday</td>
+
+                <td class="breakfast">
+                    Aloo Paratha (2)<br>
+                    Curd<br>
+                    Pickle<br>
+                    Fresh Juice
+                </td>
+
+                <td class="lunch">
+                    Rajma Chawal<br>
+                    Jeera Aloo<br>
+                    Chapati<br>
+                    Salad<br>
+                    Papad
+                </td>
+
+                <td class="dinner">
+                    Palak Paneer<br>
+                    Butter Roti<br>
+                    Dal Fry<br>
+                    Rice<br>
+                    Ice Cream
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td class="day">Wednesday</td>
+
+                <td class="breakfast">
+                    Veg Upma<br>
+                    Coconut Chutney<br>
+                    Orange Juice
+                </td>
+
+                <td class="lunch">
+                    Chole<br>
+                    Steamed Rice<br>
+                    Tandoori Roti<br>
+                    Boondi Raita<br>
+                    Salad
+                </td>
+
+                <td class="dinner">
+                    Kadai Paneer<br>
+                    Jeera Rice<br>
+                    Butter Roti<br>
+                    Fruit Custard
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td class="day">Thursday</td>
+
+                <td class="breakfast">
+                    Idli (3)<br>
+                    Sambar<br>
+                    Coconut Chutney<br>
+                    Tea
+                </td>
+
+                <td class="lunch">
+                    Kadhi Pakora<br>
+                    Jeera Rice<br>
+                    Mix Veg<br>
+                    Chapati<br>
+                    Salad
+                </td>
+
+                <td class="dinner">
+                    Dum Aloo<br>
+                    Butter Naan<br>
+                    Dal Makhani<br>
+                    Kheer
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td class="day">Friday</td>
+
+                <td class="breakfast">
+                    Poha<br>
+                    Dry Fruits<br>
+                    Tea/Coffee<br>
+                    Apple
+                </td>
+
+                <td class="lunch">
+                    Veg Biryani<br>
+                    Paneer Tikka<br>
+                    Raita<br>
+                    Salad
+                </td>
+
+                <td class="dinner">
+                    Shahi Paneer<br>
+                    Butter Roti<br>
+                    Jeera Rice<br>
+                    Rasgulla
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td class="day">Saturday</td>
+
+                <td class="breakfast">
+                    Masala Dosa<br>
+                    Sambar<br>
+                    Coconut Chutney<br>
+                    Fresh Juice
+                </td>
+
+                <td class="lunch">
+                    Dal Makhani<br>
+                    Veg Kofta<br>
+                    Chapati<br>
+                    Rice<br>
+                    Salad
+                </td>
+
+                <td class="dinner">
+                    Hakka Noodles<br>
+                    Chilli Paneer<br>
+                    Spring Roll<br>
+                    Brownie
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td class="day">Sunday</td>
+
+                <td class="breakfast">
+                    Chole Bhature<br>
+                    Sweet Lassi<br>
+                    Fruit Bowl
+                </td>
+
+                <td class="lunch">
+                    Paneer Lababdar<br>
+                    Veg Pulao<br>
+                    Butter Naan<br>
+                    Raita<br>
+                    Salad
+                </td>
+
+                <td class="dinner">
+                    Malai Kofta<br>
+                    Jeera Rice<br>
+                    Tandoori Roti<br>
+                    Gajar Halwa
+                </td>
+
+            </tr>
+
+        </table>
+
+        <div class="note">
+
+            <h2>🌱 Meal Includes</h2>
+
+            <ul>
+
+                <li>✔ Fresh Seasonal Vegetables</li>
+
+                <li>✔ Homemade Taste</li>
+
+                <li>✔ Mineral Water for Cooking</li>
+
+                <li>✔ Low Oil & Balanced Nutrition</li>
+
+                <li>✔ Fresh Salad & Pickle Daily</li>
+
+                <li>✔ Special Sweet on Premium Meals</li>
+
+                <li>✔ Hygienic Packaging & Timely Delivery</li>
+
+            </ul>
+
+        </div>
+
+    </div>
+</body>
+
+</html>

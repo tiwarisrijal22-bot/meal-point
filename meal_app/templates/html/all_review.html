@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContactUs</title>
+    {% include 'common/common_css.html' %}
+    <style>
+         body {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-color: whitesmoke;
+            /* background-image: 
+            url("{% static 'images/bgen.jpg' %}"); */
+        }
+        .flex-container{
+            display: flex;
+            gap: 30px;
+            flex-wrap: nowrap;
+            margin: 4%;
+           
+        }
+        .feed-card{
+            width: 20%;
+            height: auto;
+            background-color: rgb(202, 202, 207);
+            border-radius: 2%;
+            box-shadow: 0px 0px 10% rgb(167, 156, 156);
+            padding: 2%;
+            background-image: linear-gradient(rgba(24, 23, 23, 0.7), rgba(29, 29, 29, 0.7)),
+            url("{% static 'images/feedback 1.jpg' %}");
+        }
+    </style>
+</head>
+<body>
+    {% include 'common/header.html' %}
+    <div class="main-div">
+        <h4 style="text-align: center;color: rgb(24, 191, 24);"></h4>
+        {% if f_key %}
+        <!-- feedback container -->
+         <div class="flex-container">
+                {% for fobj in f_key %}
+            <div class="feed-card">
+                <span style="color: rgb(223, 214, 214);">Rating{{fobj.rating}}</span>
+                <p style="color: rgb(111, 228, 75);">Review Text:{{fobj.review}}</p>
+                <h6 style="color:rgb(194, 65, 65);">posted by:{{fobj.name}}</h6>
+
+        </div>
+        {% endfor %}
+         </div>
+        {% else %}
+            <h1 style="text-align: center;color: brown;">sorry!!!NO FEEDBACK</h1>
+        {% endif %}
+    </div>
+<!-- footer code included here -->
+{% include 'common/footer.html' %}
+
+</body>
+</html>

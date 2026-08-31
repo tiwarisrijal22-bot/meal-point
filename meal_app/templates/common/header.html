@@ -1,0 +1,146 @@
+<style>
+    /* Header.css */
+
+    .custom-navbar {
+        background: linear-gradient(135deg,
+                #6852cbde 0%,
+                #e7421581 35%,
+                #72d572 70%,
+                #6b4bea 100%);
+        padding: 4px 0;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 12px rgba(23, 24, 24, 0.25);
+    }
+
+    .custom-navbar .navbar-brand {
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .custom-navbar .nav-link {
+        color: rgba(9, 8, 8, 0.22) !important;
+        /* font-weight: 500; */
+        border-radius: 8px;
+        padding: 6px 12px !important;
+        transition: all 0.3s ease;
+    }
+
+    .custom-navbar .nav-link:hover {
+        background-color: rgba(17, 14, 14, 0.15);
+    }
+
+    .custom-navbar .dropdown-menu {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(228, 41, 41, 0.12);
+    }
+
+    .custom-navbar .dropdown-item {
+        padding: 8px 15px;
+    }
+
+    .custom-navbar .dropdown-item:hover {
+        background-color: #b6b9bc;
+    }
+
+    .custom-navbar .custom-btn {
+        border-radius: 20px;
+        padding: 6px 16px;
+        /* font-weight: 500; */
+    }
+</style>
+
+<!-- header.html -->
+
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+    <div class="container">
+
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            meal point
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+
+            <ul class="navbar-nav mx-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/about_us">
+                        About Us
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact_us">
+                        Contact Us
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/faq">
+                        faq
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="/all_review/">
+                        customer review
+                    </a>
+                </li>
+                <!-- Registration Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Registration
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="/customer_registration">
+                                customer Registration
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/ai_assistant/">AI Chat Bot</a>
+                </li>
+
+    
+                <!-- Login Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Login
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="/manager_login">
+                                manager Login
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="/customer_login  ">
+                                customer Login
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
