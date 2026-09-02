@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@
         .navbar {
             background-color: #7235dc;
         }
+
         .chat-box {
             min-height: 260px;
             max-height: 420px;
@@ -50,25 +52,25 @@
 <body>
     {% include 'common/header.html' %}
     <div class="main-div">
-    <div style="margin: 5%; margin-left: 6%;" class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="card shadow border-0 rounded-4 p-4">
-                    <h2 class="fw-bold text-center mb-4" style="color: #a67c38;"> AI Assistant</h2>
-                    <div id="chat-box" class="chat-box" aria-live="polite"></div>
+        <div style="margin: 5%; margin-left: 6%;" class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow border-0 rounded-4 p-4">
+                        <h2 class="fw-bold text-center mb-4" style="color: #a67c38;"> AI Assistant</h2>
+                        <div id="chat-box" class="chat-box" aria-live="polite"></div>
 
-                    <form id="chat-form" class="mt-4">
-                        {% csrf_token %}
-                        <div class="input-group">
-                            <input id="message" type="text" class="form-control"
-                                placeholder="Ask about the app and writing support..." required>
-                            <button class="btn btn-warning1 text-white" type="submit">Send</button>
-                        </div>
-                    </form>
+                        <form id="chat-form" class="mt-4">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input id="message" type="text" class="form-control"
+                                    placeholder="Ask about the app and writing support..." required>
+                                <button class="btn btn-warning1 text-white" type="submit">Send</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <script>
         const chatForm = document.getElementById('chat-form');
