@@ -25,8 +25,13 @@ SECRET_KEY = 'django-insecure-g^_z9zze$yst$11jirvtglmc8dwch27wqjo_g9xi1*j@ho7q(o
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 ALLOWED_HOSTS = ['*']
+
+
+# --------------------------------------------------
 # Application definition
+# --------------------------------------------------
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -35,17 +40,36 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'cloudinary',
     'cloudinary_storage',
+
     'meal_app',
 ]
+
+
+# --------------------------------------------------
+# Cloudinary
+# --------------------------------------------------
+
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'YOUR_CLOUD_NAME',
-    'API_KEY': 'YOUR_API_KEY',
-    'API_SECRET': 'YOUR_API_SECRET',
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Django 6 storage configuration
+STORAGES = {
+    'default': {
+        'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+    },
+}
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -56,7 +80,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'meal_point.urls'
+
 
 TEMPLATES = [
     {
@@ -73,11 +99,13 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'meal_point.wsgi.application'
 
 
+# --------------------------------------------------
 # Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+# --------------------------------------------------
 
 DATABASES = {
     'default': {
@@ -87,8 +115,9 @@ DATABASES = {
 }
 
 
+# --------------------------------------------------
 # Password validation
-# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
+# --------------------------------------------------
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -106,8 +135,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# --------------------------------------------------
 # Internationalization
-# https://docs.djangoproject.com/en/6.0/topics/i18n/
+# --------------------------------------------------
 
 LANGUAGE_CODE = 'en-us'
 
@@ -118,10 +148,17 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
+# --------------------------------------------------
+# Static files
+# --------------------------------------------------
+
 STATIC_URL = '/static/'
+
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+
+# --------------------------------------------------
+# Media
+# --------------------------------------------------
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
