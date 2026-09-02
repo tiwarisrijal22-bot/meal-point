@@ -51,12 +51,14 @@ INSTALLED_APPS = [
 # --------------------------------------------------
 # Cloudinary
 # --------------------------------------------------
+# --------------------------------------------------
 # Cloudinary
 # --------------------------------------------------
+
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('Root'),
-    'API_KEY': os.environ.get('548166958638755'),
-    'API_SECRET': os.environ.get('H8SP4zxjYyF0ZY11j31bifpiEDE'),
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
 }
 
 STORAGES = {
