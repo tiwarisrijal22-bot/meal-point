@@ -1,3 +1,5 @@
+import cohere
+import os
 from django.shortcuts import render, redirect
 from .models import (
     Feedback,
@@ -10,16 +12,13 @@ from .models import (
 )
 from django.contrib import messages
 from django.http import JsonResponse
-import cohere
-import os
 
 
 # =========================================================
 # COHERE AI
 # =========================================================
 
-co = cohere.Client(os.getenv("3Qr9unxPeKqDRBWersAi1Mets3qXnZp9Q2bdOVf4"))
-
+# co = cohere.Client(os.getenv("3Qr9unxPeKqDRBWersAi1Mets3qXnZp9Q2bdOVf4"))
 
 AI_CONTEXT = """
 IMPORTANT INSTRUCTIONS:
@@ -292,8 +291,8 @@ def ai_chat(request):
         )
 
     # Check API key
-    api_key = os.getenv("COHERE_API_KEY")
-
+   
+    api_key = os.getenv("CO_API_KEY")
     if not api_key:
 
         return JsonResponse(
