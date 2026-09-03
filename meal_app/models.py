@@ -33,7 +33,13 @@ class MealPlan(models.Model):
     meals_included = models.TextField()
     duration = models.CharField(max_length=20)
     cost = models.IntegerField()
-    plan_image = models.ImageField(upload_to='meal_plan/', default="")
+
+    plan_image = models.ImageField(
+        upload_to='meal_plan/',
+        blank=True,
+        null=True
+    )
+
     def __str__(self):
         return self.plan_name
 class Payment(models.Model):
