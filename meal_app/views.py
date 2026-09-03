@@ -1,6 +1,11 @@
 import cohere
 import os
+
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.http import HttpResponse, JsonResponse
+from django.contrib import messages
+
 from .models import (
     Feedback,
     Contact,
@@ -10,15 +15,11 @@ from .models import (
     Payment,
     UpiDetail,
 )
-from django.contrib import messages
-from django.http import JsonResponse
 
 
 # =========================================================
 # COHERE AI
 # =========================================================
-
-# co = cohere.Client(os.getenv("3Qr9unxPeKqDRBWersAi1Mets3qXnZp9Q2bdOVf4"))
 
 AI_CONTEXT = """
 IMPORTANT INSTRUCTIONS:
@@ -50,6 +51,7 @@ This project is a customer and manager portal for a meal planning
 and food service platform.
 
 Customers can:
+
 - Register
 - Login
 - View meal plans
@@ -63,6 +65,7 @@ Customers can:
 - Use the AI Assistant
 
 Managers can:
+
 - Login
 - View manager details
 - Manage meal plans
@@ -94,6 +97,7 @@ UpiDetail:
 upiid
 
 The AI assistant should help users with:
+
 - Customer registration
 - Customer login
 - Manager login
@@ -187,7 +191,6 @@ def build_dynamic_ai_context():
             )
 
     else:
-
         lines.append("\n=== Available Meal Plans ===")
         lines.append("- No meal plans available yet.")
 
@@ -217,7 +220,6 @@ def build_dynamic_ai_context():
             )
 
     else:
-
         lines.append("\n=== Recent Customer Contacts ===")
         lines.append("- No contact inquiries yet.")
 
@@ -247,7 +249,6 @@ def build_dynamic_ai_context():
             )
 
     else:
-
         lines.append("\n=== Recent Customer Feedback ===")
         lines.append("- No feedback available yet.")
 
@@ -259,7 +260,11 @@ def build_dynamic_ai_context():
 # =========================================================
 
 def ai_assistant(request):
-    return render(request, "html/ai_assistant.html")
+
+    return render(
+        request,
+        "html/ai_assistant.html"
+    )
 
 
 # =========================================================
@@ -291,8 +296,9 @@ def ai_chat(request):
         )
 
     # Check API key
-   
+
     api_key = os.getenv("CO_API_KEY")
+
     if not api_key:
 
         return JsonResponse(
@@ -307,7 +313,6 @@ def ai_chat(request):
 
     try:
 
-        # Create Cohere client using environment variable
         client = cohere.Client(api_key)
 
         dynamic_context = build_dynamic_ai_context()
@@ -349,7 +354,11 @@ def ai_chat(request):
 # =========================================================
 
 def home(request):
-    return render(request, "html/index.html")
+
+    return render(
+        request,
+        "html/index.html"
+    )
 
 
 # =========================================================
@@ -357,7 +366,11 @@ def home(request):
 # =========================================================
 
 def about_us(request):
-    return render(request, "html/about_us.html")
+
+    return render(
+        request,
+        "html/about_us.html"
+    )
 
 
 # =========================================================
@@ -471,7 +484,7 @@ def customer_registration(request):
 
             return redirect("registrationpage")
 
-        # Profile picture is optional
+        # Profile picture validation
 
         if pic:
 
@@ -797,6 +810,7 @@ def make_payement(request):
         )
 
         am = request.POST["amount"]
+
         t_id = request.POST["transaction_id"]
 
         pos = Payment(
@@ -926,4 +940,27 @@ def faq(request):
     return render(
         request,
         "html/faq.html"
+    )
+
+
+# =========================================================
+# TEMPORARY CREATE ADMIN
+# =========================================================
+
+def create_admin(request):
+
+    if not User.objects.filter(username="admin").exists():
+
+        User.objects.create_superuser(
+            username="admin",
+            email="admin@mealpoint.com",
+            password="Admin@12345"
+        )
+
+        return HttpResponse(
+            "Admin created successfully."
+        )
+
+    return HttpResponse(
+        "Admin already exists."
     )
