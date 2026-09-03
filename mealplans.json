@@ -1,0 +1,68 @@
+[
+{
+  "model": "meal_app.mealplan",
+  "pk": 1,
+  "fields": {
+    "plan_name": "Weekly Vegetarian Meal Schedule",
+    "meals_included": "Breakfast + Lunch + Dinner +  Salad & Pickle + Special Sweet",
+    "duration": "7 Days",
+    "cost": 500,
+    "plan_image": "media/meal_plan/img10_zbleid"
+  }
+},
+{
+  "model": "meal_app.mealplan",
+  "pk": 2,
+  "fields": {
+    "plan_name": "Basic Meal Plan",
+    "meals_included": "Breakfast + Lunch + Dinner + Seasonal Veggies + Salad",
+    "duration": "1 Month",
+    "cost": 2500,
+    "plan_image": "media/meal_plan/img8_dq3hit"
+  }
+},
+{
+  "model": "meal_app.mealplan",
+  "pk": 3,
+  "fields": {
+    "plan_name": "Student Special Plan",
+    "meals_included": "Breakfast + Lunch + Dinner + Salad + Low-Oil Nutrition",
+    "duration": "1 Month",
+    "cost": 3000,
+    "plan_image": "media/meal_plan/img3_epo7CSU_cfur3y"
+  }
+},
+{
+  "model": "meal_app.mealplan",
+  "pk": 4,
+  "fields": {
+    "plan_name": "Healthy Nutrition Plan",
+    "meals_included": "Breakfast + Lunch + Dinner + Seasonal Veggies + Salad + Low-Oil Nutrition + Special Sweet",
+    "duration": "1 Month",
+    "cost": 4000,
+    "plan_image": "media/meal_plan/img2_bvw3v1"
+  }
+},
+{
+  "model": "meal_app.mealplan",
+  "pk": 5,
+  "fields": {
+    "plan_name": "Premium Meal Plan",
+    "meals_included": "Breakfast + Lunch + Dinner + Seasonal Veggies + Salad & Pickle + Low-Oil Nutrition + Special Sweet",
+    "duration": "1 Month",
+    "cost": 5000,
+    "plan_image": "media/meal_plan/img1_fk2pgt"
+  }
+},
+{
+  "model": "meal_app.mealplan",
+  "pk": 6,
+  "fields": {
+    "plan_name": "Homestyle Comfort Plan",
+    "meals_included": "Breakfast + Lunch + Dinner + Homemade Taste + Seasonal Veggies + Salad & Pickle",
+    "duration": "1 Month",
+    "cost": 3500,
+    "plan_image": "media/meal_plan/img10_v12efu"
+  }
+}
+]
