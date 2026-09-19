@@ -13,6 +13,8 @@ import dj_database_url
 # =========================================================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 # =========================================================
 # SECURITY
 # =========================================================
@@ -33,6 +35,8 @@ ALLOWED_HOSTS = [
 CSRF_TRUSTED_ORIGINS = [
     "https://meal-point-edxt.vercel.app",
 ]
+
+
 # =========================================================
 # APPLICATIONS
 # =========================================================
@@ -126,14 +130,6 @@ TEMPLATES = [
 # =========================================================
 # DATABASE
 # =========================================================
-#
-# LOCAL:
-#     SQLite will be used automatically.
-#
-# VERCEL:
-#     PostgreSQL will be used when DATABASE_URL is present.
-#
-# =========================================================
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -206,6 +202,10 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "meal_app" / "static",
+]
 
 
 # =========================================================
