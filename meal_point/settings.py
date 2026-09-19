@@ -34,7 +34,8 @@ ALLOWED_HOSTS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://meal-point-edxt.vercel.app",
+    "https://meal-point-three.vercel.app",
+    "https://meal-point-git-main-tiwarisrijal22-bot.vercel.app",
 ]
 
 
@@ -76,6 +77,7 @@ STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
+
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
@@ -91,15 +93,11 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
 
     "django.contrib.sessions.middleware.SessionMiddleware",
-
     "django.middleware.common.CommonMiddleware",
-
     "django.middleware.csrf.CsrfViewMiddleware",
 
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-
     "django.contrib.messages.middleware.MessageMiddleware",
-
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
@@ -122,6 +120,7 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [],
         "APP_DIRS": True,
+
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.request",
@@ -135,6 +134,14 @@ TEMPLATES = [
 
 # =========================================================
 # DATABASE
+# =========================================================
+#
+# LOCAL:
+#   SQLite -> db.sqlite3
+#
+# VERCEL:
+#   DATABASE_URL -> PostgreSQL
+#
 # =========================================================
 
 DATABASE_URL = os.getenv("DATABASE_URL")
