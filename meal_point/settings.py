@@ -4,6 +4,7 @@ Django settings for meal_point project.
 
 from pathlib import Path
 import os
+
 import cloudinary
 import dj_database_url
 
@@ -65,6 +66,11 @@ cloudinary.config(
     api_key=os.getenv("CLOUDINARY_API_KEY"),
     api_secret=os.getenv("CLOUDINARY_API_SECRET"),
 )
+
+
+# =========================================================
+# STORAGE
+# =========================================================
 
 STORAGES = {
     "default": {
