@@ -13,8 +13,6 @@ import dj_database_url
 # =========================================================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
 # =========================================================
 # SECURITY
 # =========================================================
@@ -27,7 +25,7 @@ SECRET_KEY = os.getenv(
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = [
-    "meal-point-edxt.vercel.app",
+    ".vercel.app",
     "localhost",
     "127.0.0.1",
 ]
@@ -35,8 +33,6 @@ ALLOWED_HOSTS = [
 CSRF_TRUSTED_ORIGINS = [
     "https://meal-point-edxt.vercel.app",
 ]
-
-
 # =========================================================
 # APPLICATIONS
 # =========================================================
