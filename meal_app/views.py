@@ -1,5 +1,7 @@
-import cohere
+import logging
 import os
+
+import cohere
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -15,6 +17,13 @@ from .models import (
     Payment,
     UpiDetail,
 )
+
+
+# =========================================================
+# LOGGING
+# =========================================================
+
+logger = logging.getLogger(__name__)
 
 
 # =========================================================
@@ -76,7 +85,7 @@ Managers can:
 Main data models:
 
 CustomerDetail:
-name, email, password, phone, profile_pic, date
+name, email, password, phone, profile_pic
 
 ManagerDetail:
 name, email, password, phone, city, address, profile_pic
@@ -127,7 +136,7 @@ def build_dynamic_ai_context():
 
     customers = CustomerDetail.objects.all()
 
-    if customers:
+    if customers.exists():
         lines.append("\n=== Registered Customers ===")
 
         for customer in customers:
@@ -146,7 +155,7 @@ def build_dynamic_ai_context():
 
     managers = ManagerDetail.objects.all()
 
-    if managers:
+    if managers.exists():
         lines.append("\n=== Registered Managers ===")
 
         for manager in managers:
@@ -162,7 +171,6 @@ def build_dynamic_ai_context():
                 f"city={manager.city} | "
                 f"address={address_preview}"
             )
-
     else:
         lines.append("\n=== Registered Managers ===")
         lines.append("- No managers registered yet.")
@@ -173,8 +181,7 @@ def build_dynamic_ai_context():
 
     meal_plans = MealPlan.objects.all().order_by("cost")
 
-    if meal_plans:
-
+    if meal_plans.exists():
         lines.append("\n=== Available Meal Plans ===")
 
         for plan in meal_plans:
@@ -189,7 +196,6 @@ def build_dynamic_ai_context():
                 f"cost=₹{plan.cost} | "
                 f"meals={meals_preview}"
             )
-
     else:
         lines.append("\n=== Available Meal Plans ===")
         lines.append("- No meal plans available yet.")
@@ -200,8 +206,7 @@ def build_dynamic_ai_context():
 
     contacts = Contact.objects.all().order_by("-contact_date")[:5]
 
-    if contacts:
-
+    if contacts.exists():
         lines.append(
             "\n=== Recent Customer Contacts and Inquiries ==="
         )
@@ -218,7 +223,6 @@ def build_dynamic_ai_context():
                 f"phone={contact.phone} | "
                 f"question={question_preview}"
             )
-
     else:
         lines.append("\n=== Recent Customer Contacts ===")
         lines.append("- No contact inquiries yet.")
@@ -229,8 +233,7 @@ def build_dynamic_ai_context():
 
     feedbacks = Feedback.objects.all().order_by("-date")[:5]
 
-    if feedbacks:
-
+    if feedbacks.exists():
         lines.append(
             "\n=== Recent Customer Feedback and Ratings ==="
         )
@@ -247,7 +250,6 @@ def build_dynamic_ai_context():
                 f"rating={feedback.rating} | "
                 f"review={review_preview}"
             )
-
     else:
         lines.append("\n=== Recent Customer Feedback ===")
         lines.append("- No feedback available yet.")
@@ -295,8 +297,6 @@ def ai_chat(request):
             status=400
         )
 
-    # Check API key
-
     api_key = os.getenv("CO_API_KEY")
 
     if not api_key:
@@ -337,6 +337,8 @@ def ai_chat(request):
         )
 
     except Exception:
+
+        logger.exception("COHERE AI ERROR")
 
         return JsonResponse(
             {
@@ -388,24 +390,44 @@ def contact_us(request):
 
     if request.method == "POST":
 
-        nm = request.POST["name"]
-        em = request.POST["email"]
-        ph = request.POST["phone"]
-        qe = request.POST["question"]
+        nm = request.POST.get("name", "").strip()
+        em = request.POST.get("email", "").strip()
+        ph = request.POST.get("phone", "").strip()
+        qe = request.POST.get("question", "").strip()
 
-        con = Contact(
-            name=nm,
-            email=em,
-            phone=ph,
-            question=qe
-        )
+        if not nm or not em or not ph or not qe:
 
-        con.save()
+            messages.error(
+                request,
+                "Please fill all required fields."
+            )
 
-        messages.success(
-            request,
-            "Thanks for contact"
-        )
+            return redirect("contactpage")
+
+        try:
+
+            con = Contact(
+                name=nm,
+                email=em,
+                phone=ph,
+                question=qe
+            )
+
+            con.save()
+
+            messages.success(
+                request,
+                "Thanks for contact"
+            )
+
+        except Exception:
+
+            logger.exception("CONTACT FORM ERROR")
+
+            messages.error(
+                request,
+                "Unable to submit your inquiry. Please try again."
+            )
 
         return redirect("contactpage")
 
@@ -425,24 +447,44 @@ def customer_feedback(request):
 
     if request.method == "POST":
 
-        nm = request.POST["name"]
-        em = request.POST["email"]
-        rt = request.POST["rating"]
-        rw = request.POST["review"]
+        nm = request.POST.get("name", "").strip()
+        em = request.POST.get("email", "").strip()
+        rt = request.POST.get("rating", "").strip()
+        rw = request.POST.get("review", "").strip()
 
-        f = Feedback(
-            name=nm,
-            email=em,
-            rating=rt,
-            review=rw
-        )
+        if not nm or not em or not rt or not rw:
 
-        f.save()
+            messages.error(
+                request,
+                "Please fill all required fields."
+            )
 
-        messages.success(
-            request,
-            "Thanks for giving your feedback"
-        )
+            return redirect("feedbackpage")
+
+        try:
+
+            f = Feedback(
+                name=nm,
+                email=em,
+                rating=rt,
+                review=rw
+            )
+
+            f.save()
+
+            messages.success(
+                request,
+                "Thanks for giving your feedback"
+            )
+
+        except Exception:
+
+            logger.exception("FEEDBACK FORM ERROR")
+
+            messages.error(
+                request,
+                "Unable to submit feedback. Please try again."
+            )
 
         return redirect("feedbackpage")
 
@@ -462,20 +504,77 @@ def customer_registration(request):
 
     if request.method == "POST":
 
-        nm = request.POST["name"]
-        em = request.POST["email"]
-        ps = request.POST["password"]
-        ph = request.POST["phone"]
+        # -------------------------------------------------
+        # Get form data safely
+        # -------------------------------------------------
+
+        nm = request.POST.get("name", "").strip()
+        em = request.POST.get("email", "").strip().lower()
+        ps = request.POST.get("password", "")
+        ph = request.POST.get("phone", "").strip()
 
         pic = request.FILES.get("profile_pic")
 
-        # Check email already exists
+        # -------------------------------------------------
+        # Required field validation
+        # -------------------------------------------------
 
-        email_exists = CustomerDetail.objects.filter(
+        if not nm or not em or not ps or not ph:
+
+            messages.error(
+                request,
+                "Please fill all required fields."
+            )
+
+            return redirect("registrationpage")
+
+        # -------------------------------------------------
+        # Length validation
+        # -------------------------------------------------
+
+        if len(nm) > 45:
+
+            messages.error(
+                request,
+                "Name must be 45 characters or less."
+            )
+
+            return redirect("registrationpage")
+
+        if len(em) > 55:
+
+            messages.error(
+                request,
+                "Email must be 55 characters or less."
+            )
+
+            return redirect("registrationpage")
+
+        if len(ps) > 55:
+
+            messages.error(
+                request,
+                "Password must be 55 characters or less."
+            )
+
+            return redirect("registrationpage")
+
+        if len(ph) > 13:
+
+            messages.error(
+                request,
+                "Phone number must be 13 characters or less."
+            )
+
+            return redirect("registrationpage")
+
+        # -------------------------------------------------
+        # Check existing email
+        # -------------------------------------------------
+
+        if CustomerDetail.objects.filter(
             email=em
-        ).exists()
-
-        if email_exists:
+        ).exists():
 
             messages.error(
                 request,
@@ -484,7 +583,9 @@ def customer_registration(request):
 
             return redirect("registrationpage")
 
+        # -------------------------------------------------
         # Profile picture validation
+        # -------------------------------------------------
 
         if pic:
 
@@ -507,24 +608,61 @@ def customer_registration(request):
 
                 return redirect("registrationpage")
 
+            # Limit image size to 5 MB
+            if pic.size > 5 * 1024 * 1024:
+
+                messages.error(
+                    request,
+                    "Profile picture must be smaller than 5 MB."
+                )
+
+                return redirect("registrationpage")
+
+        # -------------------------------------------------
         # Create customer
+        # -------------------------------------------------
 
-        cus = CustomerDetail(
-            name=nm,
-            email=em,
-            password=ps,
-            phone=ph,
-            profile_pic=pic
-        )
+        try:
 
-        cus.save()
+            cus = CustomerDetail(
+                name=nm,
+                email=em,
+                password=ps,
+                phone=ph
+            )
 
-        messages.success(
-            request,
-            "Welcome to Meal Point"
-        )
+            # Add profile picture only if uploaded
+            if pic:
+                cus.profile_pic = pic
 
-        return redirect("loginpage")
+            cus.save()
+
+            logger.info(
+                "CUSTOMER REGISTERED SUCCESSFULLY: %s",
+                em
+            )
+
+            messages.success(
+                request,
+                "Welcome to Meal Point"
+            )
+
+            return redirect("loginpage")
+
+        except Exception:
+
+            # IMPORTANT:
+            # This traceback will appear in Render Logs.
+            logger.exception(
+                "CUSTOMER REGISTRATION FAILED"
+            )
+
+            messages.error(
+                request,
+                "Registration failed. Please try again."
+            )
+
+            return redirect("registrationpage")
 
 
 # =========================================================
@@ -542,8 +680,8 @@ def customer_login(request):
 
     if request.method == "POST":
 
-        em = request.POST["email"]
-        ps = request.POST["password"]
+        em = request.POST.get("email", "").strip().lower()
+        ps = request.POST.get("password", "")
 
         customer_list = CustomerDetail.objects.filter(
             email=em,
@@ -557,14 +695,12 @@ def customer_login(request):
 
             return redirect("homepage")
 
-        else:
+        messages.error(
+            request,
+            "Invalid credentials"
+        )
 
-            messages.error(
-                request,
-                "Invalid credentials"
-            )
-
-            return redirect("loginpage")
+        return redirect("loginpage")
 
 
 # =========================================================
@@ -573,11 +709,29 @@ def customer_login(request):
 
 def customer_home(request):
 
-    email_id = request.session["session_key"]
+    email_id = request.session.get("session_key")
 
-    customer_object = CustomerDetail.objects.get(
-        email=email_id
-    )
+    if not email_id:
+
+        return redirect("loginpage")
+
+    try:
+
+        customer_object = CustomerDetail.objects.get(
+            email=email_id
+        )
+
+    except CustomerDetail.DoesNotExist:
+
+        request.session.pop("session_key", None)
+        request.session.pop("role", None)
+
+        messages.error(
+            request,
+            "Customer account not found."
+        )
+
+        return redirect("loginpage")
 
     context = {
         "customer_key": customer_object
@@ -605,8 +759,8 @@ def manager_login(request):
 
     if request.method == "POST":
 
-        em = request.POST["email"]
-        ps = request.POST["password"]
+        em = request.POST.get("email", "").strip().lower()
+        ps = request.POST.get("password", "")
 
         manager_list = ManagerDetail.objects.filter(
             email=em,
@@ -620,14 +774,12 @@ def manager_login(request):
 
             return redirect("managerhomepage")
 
-        else:
+        messages.error(
+            request,
+            "Invalid manager"
+        )
 
-            messages.error(
-                request,
-                "Invalid manager"
-            )
-
-            return redirect("managerloginpage")
+        return redirect("managerloginpage")
 
 
 # =========================================================
@@ -648,11 +800,29 @@ def manager_detail(request):
 
 def manager_home(request):
 
-    email_id = request.session["session_key"]
+    email_id = request.session.get("session_key")
 
-    manager_object = ManagerDetail.objects.get(
-        email=email_id
-    )
+    if not email_id:
+
+        return redirect("managerloginpage")
+
+    try:
+
+        manager_object = ManagerDetail.objects.get(
+            email=email_id
+        )
+
+    except ManagerDetail.DoesNotExist:
+
+        request.session.pop("session_key", None)
+        request.session.pop("role", None)
+
+        messages.error(
+            request,
+            "Manager account not found."
+        )
+
+        return redirect("managerloginpage")
 
     context = {
         "manager_key": manager_object
@@ -755,9 +925,20 @@ def food(request):
 
 def purchase_plan(request, id):
 
-    plan_obj = MealPlan.objects.get(
-        id=id
-    )
+    try:
+
+        plan_obj = MealPlan.objects.get(
+            id=id
+        )
+
+    except MealPlan.DoesNotExist:
+
+        messages.error(
+            request,
+            "Meal plan not found."
+        )
+
+        return redirect("homepage")
 
     upi_object = UpiDetail.objects.first()
 
@@ -797,40 +978,74 @@ def make_payement(request):
 
     if request.method == "POST":
 
-        email_id = request.session["session_key"]
+        email_id = request.session.get("session_key")
 
-        customer_object = CustomerDetail.objects.get(
-            email=email_id
-        )
+        if not email_id:
 
-        p_id = request.POST["plan_id"]
+            messages.error(
+                request,
+                "Please login first."
+            )
 
-        plan_ob = MealPlan.objects.get(
-            id=p_id
-        )
+            return redirect("loginpage")
 
-        am = request.POST["amount"]
+        try:
 
-        t_id = request.POST["transaction_id"]
+            customer_object = CustomerDetail.objects.get(
+                email=email_id
+            )
 
-        pos = Payment(
-            customer=customer_object,
-            plan=plan_ob,
-            amount=am,
-            transaction_id=t_id
-        )
+            p_id = request.POST.get("plan_id")
+            am = request.POST.get("amount")
+            t_id = request.POST.get("transaction_id", "").strip()
 
-        pos.save()
+            plan_ob = MealPlan.objects.get(
+                id=p_id
+            )
 
-        messages.success(
-            request,
-            "Payment successful 🤗"
-        )
+            if not am or not t_id:
 
-        return redirect(
-            "purchase_plan",
-            id=p_id
-        )
+                messages.error(
+                    request,
+                    "Please provide payment details."
+                )
+
+                return redirect(
+                    "purchase_plan",
+                    id=p_id
+                )
+
+            pos = Payment(
+                customer=customer_object,
+                plan=plan_ob,
+                amount=am,
+                transaction_id=t_id
+            )
+
+            pos.save()
+
+            messages.success(
+                request,
+                "Payment successful 🤗"
+            )
+
+            return redirect(
+                "purchase_plan",
+                id=p_id
+            )
+
+        except Exception:
+
+            logger.exception(
+                "PAYMENT ERROR"
+            )
+
+            messages.error(
+                request,
+                "Payment could not be completed."
+            )
+
+            return redirect("homepage")
 
 
 # =========================================================
@@ -839,11 +1054,21 @@ def make_payement(request):
 
 def mybooking_status(request):
 
-    email_id = request.session["session_key"]
+    email_id = request.session.get("session_key")
 
-    customer_object = CustomerDetail.objects.get(
-        email=email_id
-    )
+    if not email_id:
+
+        return redirect("loginpage")
+
+    try:
+
+        customer_object = CustomerDetail.objects.get(
+            email=email_id
+        )
+
+    except CustomerDetail.DoesNotExist:
+
+        return redirect("loginpage")
 
     paylist = Payment.objects.filter(
         customer=customer_object
@@ -885,11 +1110,21 @@ def all_bookings(request):
 
 def edit_profile(request):
 
-    email_id = request.session["session_key"]
+    email_id = request.session.get("session_key")
 
-    customer_object = CustomerDetail.objects.get(
-        email=email_id
-    )
+    if not email_id:
+
+        return redirect("loginpage")
+
+    try:
+
+        customer_object = CustomerDetail.objects.get(
+            email=email_id
+        )
+
+    except CustomerDetail.DoesNotExist:
+
+        return redirect("loginpage")
 
     if request.method == "GET":
 
@@ -905,28 +1140,66 @@ def edit_profile(request):
 
     if request.method == "POST":
 
-        nm = request.POST["name"]
-        ph = request.POST["phone"]
+        nm = request.POST.get("name", "").strip()
+        ph = request.POST.get("phone", "").strip()
 
-        # Update profile picture if uploaded
+        if not nm or not ph:
 
-        if "profile_pic" in request.FILES:
-
-            customer_object.profile_pic = (
-                request.FILES.get("profile_pic")
+            messages.error(
+                request,
+                "Name and phone are required."
             )
 
-        # Update name and phone
+            return redirect("editprofile")
 
         customer_object.name = nm
         customer_object.phone = ph
 
-        customer_object.save()
+        # Update profile picture only if uploaded
+        pic = request.FILES.get("profile_pic")
 
-        messages.success(
-            request,
-            "Profile updated successfully 👍👍"
-        )
+        if pic:
+
+            allowed_extensions = (
+                ".jpg",
+                ".jpeg",
+                ".png",
+                ".gif",
+                ".webp"
+            )
+
+            if not pic.name.lower().endswith(
+                allowed_extensions
+            ):
+
+                messages.error(
+                    request,
+                    "Only JPG, JPEG, PNG, GIF and WEBP images are allowed."
+                )
+
+                return redirect("editprofile")
+
+            customer_object.profile_pic = pic
+
+        try:
+
+            customer_object.save()
+
+            messages.success(
+                request,
+                "Profile updated successfully 👍👍"
+            )
+
+        except Exception:
+
+            logger.exception(
+                "PROFILE UPDATE ERROR"
+            )
+
+            messages.error(
+                request,
+                "Profile could not be updated."
+            )
 
         return redirect("homepage")
 
@@ -949,18 +1222,33 @@ def faq(request):
 
 def create_admin(request):
 
-    if not User.objects.filter(username="admin").exists():
+    try:
 
-        User.objects.create_superuser(
-            username="admin",
-            email="admin@mealpoint.com",
-            password="Admin@12345"
+        if not User.objects.filter(
+            username="admin"
+        ).exists():
+
+            User.objects.create_superuser(
+                username="admin",
+                email="admin@mealpoint.com",
+                password="Admin@12345"
+            )
+
+            return HttpResponse(
+                "Admin created successfully."
+            )
+
+        return HttpResponse(
+            "Admin already exists."
+        )
+
+    except Exception:
+
+        logger.exception(
+            "CREATE ADMIN ERROR"
         )
 
         return HttpResponse(
-            "Admin created successfully."
+            "Unable to create admin. Check Render logs.",
+            status=500
         )
-
-    return HttpResponse(
-        "Admin already exists."
-    )
