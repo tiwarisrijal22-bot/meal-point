@@ -27,13 +27,26 @@ SECRET_KEY = os.getenv(
 
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
+
+# =========================================================
+# ALLOWED HOSTS
+# =========================================================
+
 ALLOWED_HOSTS = [
+    "meal-point-6ojj.onrender.com",
+    ".onrender.com",
     ".vercel.app",
     "localhost",
     "127.0.0.1",
 ]
 
+
+# =========================================================
+# CSRF TRUSTED ORIGINS
+# =========================================================
+
 CSRF_TRUSTED_ORIGINS = [
+    "https://meal-point-6ojj.onrender.com",
     "https://meal-point-three.vercel.app",
     "https://meal-point-git-main-tiwarisrijal22-bot.vercel.app",
 ]
@@ -77,7 +90,6 @@ STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
-
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
@@ -120,7 +132,6 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [],
         "APP_DIRS": True,
-
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.request",
@@ -136,11 +147,11 @@ TEMPLATES = [
 # DATABASE
 # =========================================================
 #
-# LOCAL:
-#   SQLite -> db.sqlite3
+# Production:
+# DATABASE_URL -> PostgreSQL
 #
-# VERCEL:
-#   DATABASE_URL -> PostgreSQL
+# Local development:
+# SQLite -> db.sqlite3
 #
 # =========================================================
 
